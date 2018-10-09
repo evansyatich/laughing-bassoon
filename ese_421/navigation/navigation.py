@@ -1,6 +1,7 @@
 
 import Graph	
 
+graph = {}
 
 node_file = open ("mapPennParkNodes.txt")
 
@@ -14,23 +15,41 @@ for line in node_file.readlines():
 
 node_file.close()
 
+
 for key in nodes:
-	print(key, nodes[key])
+	graph[key] = []
+
+for key in graph:
+	print(key, graph[key])
+
+map_graph = Graph.Graph(graph)
 
 
 edge_file = open ("mapPennParkEdges.txt")
 
-edges = {}
+
 
 for line in edge_file.readlines():
 	some = line.split(" ") 
 
-	edges[some[0]] = some[1]
+	map_graph.add_vertex(some[0])
+
+	for keys in list(graph):
+		if(some[0] == keys):
+			map_graph.add_edge({some[0], some[1]})
+			
+			
+print(map_graph.edges())
+
+print("and here be the vertices")
+
+print(map_graph.vertices())
 
 edge_file.close()
 
-for key in edges:
-	print(key, edges[key])
+##lat = input("Please enter lat: ")
+##lon = input("Please enter lon: ")
 
-graph = Graph.Graph(nodes)
+
+
 
